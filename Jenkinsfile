@@ -1,12 +1,31 @@
-node {
-	stage 'Checkout'
-		checkout scm
+pipeline {
+    agent any
 
-	stage 'Build'
-		bat 'nuget restore SolutionName.sln'
-		bat "\"${tool 'MSBuild'}\" SolutionName.sln /p:Configuration=Release /p:Platform=\"Any CPU\" /p:ProductVersion=1.0.0.${env.BUILD_NUMBER}"
-
-	stage 'Archive'
-		archive 'ProjectName/bin/Release/**'
-
+    stages {
+        stage('Github checkout') {
+            steps {
+                git branch: 'main', credentialsId: 'jenkins-local-admin', url: 'https://github.com/arjunans/dotnet-webapp.git'
+            }
+        }
+        stage('Nuget Restore') {
+            steps {
+                dotnetRestore project: 'Dotnet-webapp'
+            }
+        }
+        stage('Build .Net') {
+            steps {
+                dotnetBuild configuration: 'Release', project: 'Dotnet-webapp', target: 'Build'
+            }
+        }
+        stage('Test') {
+            steps {
+                dotnetTest project: 'Dotnet-tests'
+            }
+        }
+        stage('Publish .Net') {
+            steps {
+                dotnetPublish configuration: 'Release', project: 'Dotnet-webapp'
+            }
+        }
+    }
 }
