@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Build .Net') {
             steps {
-                dotnetBuild configuration: 'Release', project: 'Dotnet-webapp', target: 'Build'
+                dotnetBuild configuration: 'Release', project: 'Dotnet-webapp.sln', target: 'Build'
             }
         }
         stage('Test') {
