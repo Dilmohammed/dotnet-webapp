@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Github checkout') {
             steps {
-                git branch: 'main', credentialsId: 'jenkins-local-admin', url: 'https://github.com/arjunans/dotnet-webapp.git'
+                git branch: 'main', url: 'https://github.com/arjunans/dotnet-webapp.git'
             }
         }
         stage('Nuget Restore') {
