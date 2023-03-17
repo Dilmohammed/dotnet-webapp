@@ -14,17 +14,17 @@ pipeline {
         }
         stage('Build .Net') {
             steps {
-                dotnetBuild configuration: 'Release', project: 'Dotnet-webapp.sln', target: 'Build'
+                dotnetBuild configuration: 'Release', project: 'Dotnet-webapp.sln', target: 'Build', sdk: '.net 7'
             }
         }
         stage('Test') {
             steps {
-                dotnetTest project: 'Dotnet-tests'
+                dotnetTest project: 'Dotnet-tests', sdk: '.net 7'
             }
         }
         stage('Publish .Net') {
             steps {
-                dotnetPublish configuration: 'Release', project: 'Dotnet-webapp'
+                dotnetPublish configuration: 'Release', project: 'Dotnet-webapp', sdk: '.net 7'
             }
         }
     }
