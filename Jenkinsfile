@@ -10,6 +10,7 @@ pipeline {
         stage('Nuget Restore') {
             steps {
                dotnetRestore project: 'Dotnet-webapp', sdk: '.net 7'
+            }
         }
         stage('Build .Net') {
             steps {
