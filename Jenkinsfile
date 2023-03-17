@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                dotnetTest project: 'Dotnet-tests', sdk: '.net 7'
+                dotnetTest project: 'Dotnet-tests'
             }
         }
         stage('Publish .Net') {
